@@ -72,7 +72,7 @@ const experience = [
 
 const projects = [
   {
-    name: 'CampusAI',
+    name: 'Campus-AI',
     timeframe: 'Mar 2026 – Present',
     description:
       'Agentic AI smart campus platform with 50+ REST APIs, JWT auth, Docker deployment, and 10+ LangGraph agents for academic assistance and campus automation.',
