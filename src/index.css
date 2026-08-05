@@ -6,7 +6,7 @@
   --heading: 'Space Grotesk', 'Inter', 'Segoe UI', sans-serif;
   --mono: ui-monospace, 'SFMono-Regular', Consolas, monospace;
 
-  font: 18px/1.55 var(--sans);
+  font: 16px/1.55 var(--sans);
   color: var(--text);
   background: var(--bg);
   font-synthesis: none;

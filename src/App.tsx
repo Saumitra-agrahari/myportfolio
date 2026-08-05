@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import emailjs from '@emailjs/browser'
 import './App.css'
 
@@ -20,34 +20,24 @@ const navItems = [
 
 const skills = [
   {
+    title: 'Backend',
+    icon: '⇄',
+    items: ['Django REST Framework', 'FastAPI', 'Node.js', 'Next.js', 'REST APIs'],
+  },
+  {
+    title: 'Frontend',
+    icon: '▣',
+    items: ['React.js', 'Next.js', 'TypeScript', 'HTML5', 'Tailwind CSS', 'React Native'],
+  },
+  {
     title: 'Programming Languages',
     icon: '</>',
-    items: ['C++', 'Java', 'Python', 'JavaScript', 'SQL'],
+    items: ['Python', 'C++', 'Java', 'JavaScript', 'SQL'],
   },
   {
-    title: 'Core CS Subjects',
-    icon: '01',
-    items: [
-      'Data Structures & Algorithms',
-      'Operating Systems',
-      'Computer Networks',
-      'DBMS',
-      'OOPs',
-      'System Design',
-    ],
-  },
-  {
-    title: 'Backend & Distributed Systems',
-    icon: '◎',
-    items: [
-      'Django REST Framework',
-      'FastAPI',
-      'Node.js',
-      'Express.js',
-      'REST API Design',
-      'Multi-threading',
-      'Message Queues (MQTT)',
-    ],
+    title: 'AI / ML',
+    icon: '✦',
+    items: ['YOLOv8', 'OpenCV', 'Face Recognition', 'PyTorch', 'NumPy', 'LangGraph', 'RAG', 'AI Agents', 'Prompt Engineering'],
   },
   {
     title: 'Databases',
@@ -55,19 +45,9 @@ const skills = [
     items: ['PostgreSQL', 'MongoDB', 'MySQL'],
   },
   {
-    title: 'Frontend',
-    icon: '▣',
-    items: ['React.js', 'Next.js', 'TypeScript', 'HTML5', 'CSS3', 'Tailwind CSS'],
-  },
-  {
-    title: 'AI / GenAI',
-    icon: '✦',
-    items: ['LangGraph', 'RAG', 'AI Agents', 'Vector Databases (Qdrant)', 'Prompt Engineering'],
-  },
-  {
     title: 'Developer Tools',
     icon: '⌘',
-    items: ['Git', 'GitHub', 'Docker', 'Linux', 'Postman', 'VS Code'],
+    items: ['Git', 'GitHub', 'Docker', 'VS Code', 'Firebase', 'Figma'],
   },
 ]
 
@@ -97,6 +77,7 @@ const projects = [
     description:
       'Agentic AI smart campus platform with 50+ REST APIs, JWT auth, Docker deployment, and 10+ LangGraph agents for academic assistance and campus automation.',
     tags: ['FastAPI', 'Next.js', 'PostgreSQL', 'JWT', 'LangGraph', 'RAG', 'Docker'],
+    github: 'https://github.com/Saumitra-agrahari/campusai',
   },
   {
     name: 'Smart Bag-Pack',
@@ -104,13 +85,15 @@ const projects = [
     description:
       'IoT-based distributed tracking system with real-time sensor tracking via MQTT on Raspberry Pi, geofencing, and WebSocket streaming with sub-2s latency.',
     tags: ['React Native', 'Node.js', 'PostgreSQL', 'MQTT', 'WebSocket', 'JWT'],
+    github: 'https://github.com/Saumitra-agrahari/edp28',
   },
   {
-    name: 'IVSS',
-    timeframe: 'Aug 2025',
+    name: 'SecureSight – AI-Powered Surveillance System',
+    timeframe: '2026',
     description:
-      'Intelligent video surveillance pipeline using YOLO and OpenCV with structured event logging and a Flask API handling 10,000+ events with sub-200ms query times.',
-    tags: ['YOLO', 'OpenCV', 'Flask', 'PostgreSQL', 'CI/CD'],
+      'SecureSight is an AI-powered surveillance system that leverages YOLOv8, OpenCV, Flask, and Face Recognition to detect weapons, recognize faces, monitor real-time camera feeds, and send instant alerts through a Flask-based web dashboard.',
+    tags: ['Python', 'YOLOv8', 'OpenCV', 'Flask', 'Face Recognition', 'Computer Vision', 'Deep Learning', 'Real-time Video Processing'],
+    github: 'https://github.com/aDHarSH0824/SecureSight',
   },
   {
     name: 'Netropolis',
@@ -118,6 +101,7 @@ const projects = [
     description:
       'Rural workforce matching platform connecting rural workers with volunteers through Google OAuth, semantic search, and vector database powered matching.',
     tags: ['React', 'Django REST Framework', 'PostgreSQL', 'OAuth 2.0', 'VectorDB', 'Sentence Transformers'],
+    github: 'https://github.com/Saumitra-agrahari/netropo_lis',
   },
 ]
 
@@ -126,7 +110,8 @@ const highlights = [
   'Solved 1000+ competitive programming problems',
   'Semifinalist, Flipkart GRID 8.0',
   'Top 10 at IIITDMJ Coding Hackathon “Code Rumble”',
-  'Coordinator, Jazbaat; Event Management Head, Riwayat’25',
+  'Coordinator of Jazbaat: The Dramatics Club',
+  'Event Management Head, Riwayat College Fest',
 ]
 
 const socialLinks = [
@@ -139,6 +124,16 @@ function App() {
   const formRef = useRef<HTMLFormElement>(null)
   const [statusMessage, setStatusMessage] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [menuOpen])
+
+  const closeMenu = () => setMenuOpen(false)
 
   const handleContactSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -171,9 +166,21 @@ function App() {
           Saumitra.
         </a>
 
-        <nav aria-label="Primary" className="site-nav">
+        <button
+          className={`mobile-nav-toggle ${menuOpen ? 'open' : ''}`}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((prev) => !prev)}
+          type="button"
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+
+        <nav aria-label="Primary" className={`site-nav ${menuOpen ? 'open' : ''}`}>
           {navItems.map((item) => (
-            <a key={item.href} href={item.href}>
+            <a key={item.href} href={item.href} onClick={closeMenu}>
               {item.label}
             </a>
           ))}
@@ -183,6 +190,8 @@ function App() {
           Hire me
         </a>
       </header>
+
+      {menuOpen ? <div className="mobile-menu-backdrop" onClick={closeMenu} /> : null}
 
       <main>
         <section className="hero section" id="home">
@@ -342,6 +351,16 @@ function App() {
                     <span key={tag}>{tag}</span>
                   ))}
                 </div>
+                {project.github ? (
+                  <a
+                    className="project-link-btn"
+                    href={project.github}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    View on GitHub
+                  </a>
+                ) : null}
               </article>
             ))}
           </div>
