@@ -561,6 +561,17 @@
   font-weight: 700;
 }
 
+.timeline-link {
+  display: inline-block;
+  color: #23d7ea;
+  text-decoration: none;
+}
+
+.timeline-link:hover,
+.timeline-link:focus-visible {
+  text-decoration: underline;
+}
+
 .contact-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);

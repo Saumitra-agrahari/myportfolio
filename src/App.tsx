@@ -51,7 +51,34 @@ const skills = [
   },
 ]
 
-const experience = [
+type ExperienceItem = {
+  role: string
+  org: string
+  meta: string
+  location: string
+  summary: string
+  link?: string
+}
+
+const experience: ExperienceItem[] = [
+  {
+    role: 'Freelance Software Engineer, Furniture Catalog Website',
+    org: 'Mangalam Furniture',
+    meta: 'Nov 2026 – Present',
+    location: 'Remote',
+    summary:
+      'Built and deployed a production catalog website for a furniture shop using Django and PostgreSQL (Neon); customized the Django admin for managing categories, products and images; stored media in S3-compatible object storage; deployed on Vercel.',
+    link: 'https://mangalam-furniture-8ec3.vercel.app/',
+  },
+  {
+    role: 'Full-Stack Developer for isocode',
+    org: 'LoomSync',
+    meta: 'Oct 2026 – Nov 2026',
+    location: 'Remote',
+    summary:
+      'Built solo in 7 days: an order-tracking and delay-warning web app for a Tiruppur knitwear exporter using Next.js, TypeScript, PostgreSQL (Neon) and Drizzle; implemented role-based access with strict buyer data isolation, a run-rate engine that drives a green/amber/red order board, an offline-queued mobile supervisor update screen, and an AI step turning Tamil notes into English reason categories; cut database round trips from 100+ to 3 per request; 41 passing unit tests.',
+    link: 'https://loomsync.vercel.app',
+  },
   {
     role: 'Team Lead, Patent Management System',
     org: 'Fusion IIITDM',
@@ -328,6 +355,16 @@ function App() {
                   <h3>{item.role}</h3>
                   <p className="org-name">{item.org}</p>
                   <p>{item.summary}</p>
+                  {item.link ? (
+                    <a
+                      className="timeline-link"
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Live site ↗
+                    </a>
+                  ) : null}
                 </div>
               </article>
             ))}
